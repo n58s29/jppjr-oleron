@@ -181,6 +181,38 @@ section:nth-child(even) { background: var(--white); }
   flex-shrink: 0;
 }
 
+.on-air {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #1a1a1a;
+  color: #ff3b3b;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  animation: onair-glow 1.5s ease-in-out infinite;
+}
+.on-air:active { transform: scale(0.95); }
+.on-air-dot {
+  width: 8px; height: 8px;
+  background: #ff3b3b;
+  border-radius: 50%;
+  animation: onair-blink 1s ease-in-out infinite;
+}
+@keyframes onair-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+@keyframes onair-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(255,59,59,0.3); }
+  50% { box-shadow: 0 0 12px rgba(255,59,59,0.6); }
+}
+
 /* ===== TIMELINE ===== */
 .pace-control {
   background: var(--sand-dark);
@@ -611,7 +643,7 @@ footer a { color: var(--sunset-light); }
 
 <!-- TIMELINE -->
 <section id="timeline">
-  <div class="section-title"><span class="icon">⏱</span> Timeline Jour J</div>
+  <div class="section-title"><span class="icon">⏱</span> Timeline Jour J <a href="https://www.klikego.com/live/ultra-trail-de-lile-doleron-2025/course-a-pied-running/1695760050266-2" target="_blank" class="on-air"><span class="on-air-dot"></span> LIVE</a></div>
 
   <div class="pace-control">
     <label style="margin-bottom:12px;display:block">Allure estimée par coureur</label>
