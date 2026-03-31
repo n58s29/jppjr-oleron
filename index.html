@@ -181,6 +181,69 @@ section:nth-child(even) { background: var(--white); }
   flex-shrink: 0;
 }
 
+/* ===== WEATHER ===== */
+.weather-strip {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.weather-strip::-webkit-scrollbar { display: none; }
+.weather-loading {
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.6;
+  padding: 8px;
+}
+.weather-hours {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+}
+.wh-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 10px;
+  min-width: 58px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.wh-slot:last-child { border-right: none; }
+.wh-slot.wh-now {
+  background: rgba(232,118,75,0.25);
+  border-radius: 8px;
+}
+.wh-time {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+.wh-icon {
+  font-size: 22px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.wh-temp {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sunset-light);
+}
+.wh-wind {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-top: 1px;
+}
+.wh-rain {
+  font-size: 10px;
+  color: #60a5fa;
+  font-weight: 600;
+}
+
 .on-air {
   margin-left: auto;
   display: inline-flex;
@@ -633,6 +696,9 @@ footer a { color: var(--sunset-light); }
       <div class="cd-box"><div class="num" id="cd-m">--</div><div class="lbl">Min</div></div>
       <div class="cd-box"><div class="num" id="cd-s">--</div><div class="lbl">Sec</div></div>
     </div>
+    <div class="weather-strip" id="weatherStrip">
+      <div class="weather-loading">🌤 Chargement météo...</div>
+    </div>
     <div class="emergency">
       <span class="emergency-label">📞 Urgences</span>
       <a href="tel:+33631813824" class="emergency-btn">Marilia</a>
@@ -643,7 +709,7 @@ footer a { color: var(--sunset-light); }
 
 <!-- TIMELINE -->
 <section id="timeline">
-  <div class="section-title"><span class="icon">⏱</span> Timeline Jour J <a href="https://live.breizhchrono.com/external/live5/index.jsp?reference=1695760050266-3" target="_blank" class="on-air"><span class="on-air-dot"></span> LIVE</a></div>
+  <div class="section-title"><span class="icon">⏱</span> Timeline Jour J <a href="https://www.klikego.com/live/ultra-trail-de-lile-doleron-2025/course-a-pied-running/1695760050266-2" target="_blank" class="on-air"><span class="on-air-dot"></span> LIVE</a></div>
 
   <div class="pace-control">
     <label style="margin-bottom:12px;display:block">Allure estimée par coureur</label>
@@ -748,7 +814,7 @@ footer a { color: var(--sunset-light); }
     <a class="link-btn" href="https://ut-oleron.fr/infos-pratiques-copy-2/" target="_blank">
       <span class="link-icon">🚗</span> Comment venir <span class="arrow">→</span>
     </a>
-    <a class="link-btn" style="background:var(--sunset)" href="https://meteofrance.com/previsions-meteo-france/saint-pierre-d-oleron/17310" target="_blank">
+    <a class="link-btn" style="background:var(--sunset)" href="https://meteofrance.com/previsions-meteo-france/le-chateau-doleron/17480" target="_blank">
       <span class="link-icon">🌤</span> Météo Château d'Oléron <span class="arrow">→</span>
     </a>
   </div>
@@ -783,6 +849,59 @@ function updateCountdown() {
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// ========== WEATHER (Open-Meteo) ==========
+const WMO_ICONS = {
+  0: '☀️', 1: '🌤', 2: '⛅', 3: '☁️',
+  45: '🌫', 48: '🌫',
+  51: '🌦', 53: '🌦', 55: '🌧',
+  61: '🌧', 63: '🌧', 65: '🌧',
+  71: '🌨', 73: '🌨', 75: '❄️',
+  77: '🌨', 80: '🌦', 81: '🌧', 82: '⛈',
+  85: '🌨', 86: '🌨',
+  95: '⛈', 96: '⛈', 99: '⛈'
+};
+
+async function loadWeather() {
+  const strip = document.getElementById('weatherStrip');
+  try {
+    // Fetch hourly data for race day window (5h-14h)
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=45.884&longitude=-1.19&hourly=temperature_2m,weathercode,windspeed_10m,precipitation_probability&timezone=Europe/Paris&start_date=2026-04-04&end_date=2026-04-04';
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('API error');
+    const data = await resp.json();
+
+    const h = data.hourly;
+    const nowHour = new Date().getHours();
+    const isRaceDay = new Date().toISOString().slice(0, 10) === '2026-04-04';
+
+    let html = '<div class="weather-hours">';
+    // Show hours 5 to 14 (5h30 start, ~13h30 finish)
+    for (let i = 5; i <= 14; i++) {
+      const temp = Math.round(h.temperature_2m[i]);
+      const code = h.weathercode[i];
+      const wind = Math.round(h.windspeed_10m[i]);
+      const rain = h.precipitation_probability[i];
+      const icon = WMO_ICONS[code] || '🌤';
+      const isNow = isRaceDay && i === nowHour;
+
+      html += `<div class="wh-slot ${isNow ? 'wh-now' : ''}">
+        <span class="wh-time">${i}h</span>
+        <span class="wh-icon">${icon}</span>
+        <span class="wh-temp">${temp}°</span>
+        <span class="wh-wind">💨 ${wind}</span>
+        ${rain > 0 ? `<span class="wh-rain">💧${rain}%</span>` : ''}
+      </div>`;
+    }
+    html += '</div>';
+    strip.innerHTML = html;
+  } catch (e) {
+    // Fallback: just show a link to meteo
+    strip.innerHTML = '<div class="weather-loading"><a href="https://meteofrance.com/previsions-meteo-france/le-chateau-doleron/17480" target="_blank" style="color:var(--sunset-light);text-decoration:none">🌤 Voir la météo du jour J →</a></div>';
+  }
+}
+
+loadWeather();
 
 // ========== TIMELINE ==========
 const runners = [
