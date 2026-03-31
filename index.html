@@ -191,6 +191,7 @@ section:nth-child(even) { background: var(--white); }
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  text-align: center;
 }
 .weather-strip::-webkit-scrollbar { display: none; }
 .weather-loading {
@@ -199,10 +200,20 @@ section:nth-child(even) { background: var(--white); }
   opacity: 0.6;
   padding: 8px;
 }
+.weather-label {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
 .weather-hours {
   display: flex;
   gap: 0;
   min-width: max-content;
+  justify-content: center;
 }
 .wh-slot {
   display: flex;
@@ -697,7 +708,8 @@ footer a { color: var(--sunset-light); }
       <div class="cd-box"><div class="num" id="cd-s">--</div><div class="lbl">Sec</div></div>
     </div>
     <div class="weather-strip" id="weatherStrip">
-      <div class="weather-loading">🌤 Chargement météo...</div>
+      <div class="weather-label">🌤 Prévisions météo du jour de course — 4 avril</div>
+      <div class="weather-loading">Chargement...</div>
     </div>
     <div class="emergency">
       <span class="emergency-label">📞 Urgences</span>
@@ -875,7 +887,7 @@ async function loadWeather() {
     const nowHour = new Date().getHours();
     const isRaceDay = new Date().toISOString().slice(0, 10) === '2026-04-04';
 
-    let html = '<div class="weather-hours">';
+    let html = '<div class="weather-label">🌤 Prévisions météo du jour de course — 4 avril</div><div class="weather-hours">';
     // Show hours 5 to 14 (5h30 start, ~13h30 finish)
     for (let i = 5; i <= 14; i++) {
       const temp = Math.round(h.temperature_2m[i]);
@@ -897,7 +909,7 @@ async function loadWeather() {
     strip.innerHTML = html;
   } catch (e) {
     // Fallback: just show a link to meteo
-    strip.innerHTML = '<div class="weather-loading"><a href="https://meteofrance.com/previsions-meteo-france/le-chateau-doleron/17480" target="_blank" style="color:var(--sunset-light);text-decoration:none">🌤 Voir la météo du jour J →</a></div>';
+    strip.innerHTML = '<div class="weather-label">🌤 Prévisions météo du jour de course — 4 avril</div><div class="weather-loading"><a href="https://meteofrance.com/previsions-meteo-france/le-chateau-doleron/17480" target="_blank" style="color:var(--sunset-light);text-decoration:none">Voir la météo →</a></div>';
   }
 }
 
