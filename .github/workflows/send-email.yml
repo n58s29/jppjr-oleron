@@ -19,7 +19,7 @@ jobs:
           secure: false
           username: m47r18@gmail.com
           password: ${{ secrets.BREVO_SMTP_KEY }}
-          to: a@a.fr,b@b.fr,c@c.fr
+          to: m47r18@pm.me,b@b.fr,c@c.fr
           from: "Team JPPJR 🏃 <m47r18@gmail.com>"
           subject: "🎙 Message du coach — J-2 avant l'Ultra Trail Oléron"
           html_body: |
