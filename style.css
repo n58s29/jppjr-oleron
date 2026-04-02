@@ -679,7 +679,7 @@ footer a { color: var(--sunset-light); }
 
 /* ===== COACH BANNER ===== */
 .coach-banner {
-  display: flex;
+  display: none; /* caché par défaut, révélé par JS à midi */
   align-items: center;
   gap: 12px;
   background: var(--sunset);
