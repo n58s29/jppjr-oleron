@@ -1,4 +1,4 @@
-# Équipe JPPJR — Ultra Trail de l'Île d'Oléron 2026
+# TEAM JPPJR — Ultra Trail de l'Île d'Oléron 2026
 
 Page compagnon mobile-first pour l'équipe **JPPJR** (relais 4×25km) à l'Ultra Trail de l'Île d'Oléron, le 4 avril 2026.
 
