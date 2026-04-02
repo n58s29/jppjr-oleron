@@ -14,11 +14,11 @@ jobs:
       - name: Envoyer le mail aux coureurs
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
+          server_address: smtp-relay.brevo.com
+          server_port: 587
+          secure: false
           username: m47r18@gmail.com
-          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          password: ${{ secrets.BREVO_SMTP_KEY }}
           to: a@a.fr,b@b.fr,c@c.fr
           from: "Team JPPJR 🏃 <m47r18@gmail.com>"
           subject: "🎙 Message du coach — J-2 avant l'Ultra Trail Oléron"
