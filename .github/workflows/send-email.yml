@@ -4,47 +4,25 @@ on:
   # 2 avril à midi heure de Paris (= 10h UTC, UTC+2 en avril)
   schedule:
     - cron: '0 10 2 4 *'
-  # Déclenchement manuel si besoin (ex: si le cron est passé)
+  # Déclenchement manuel si besoin
   workflow_dispatch:
 
 jobs:
   send:
     runs-on: ubuntu-latest
     steps:
-      - name: Envoyer le mail aux coureurs
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp-relay.brevo.com
-          server_port: 587
-          secure: false
-          username: a6e790001@smtp-brevo.com
-          password: ${{ secrets.BREVO_SMTP_KEY }}
-          to: m47r18@pm.me,b@b.fr,c@c.fr
-          from: "Team JPPJR 🏃 <m47r18@gmail.com>"
-          subject: "🎙 Message du coach — J-2 avant l'Ultra Trail Oléron"
-          html_body: |
-            <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:560px;margin:0 auto;background:#f5e6d0;border-radius:14px;overflow:hidden">
-              <div style="background:#264653;padding:32px 24px;text-align:center">
-                <div style="display:inline-block;background:#e63030;color:white;padding:6px 20px;border-radius:99px;font-size:13px;font-weight:700;letter-spacing:2px;margin-bottom:12px">RELAIS 4×25KM</div>
-                <h1 style="color:#f5e6d0;font-size:28px;margin:0 0 6px">Team JPPJR</h1>
-                <p style="color:#f5e6d0;opacity:0.8;font-size:14px;margin:0">Ultra Trail de l'Île d'Oléron — 4 avril 2026</p>
-              </div>
-              <div style="padding:28px 24px">
-                <p style="font-size:16px;color:#2c2416;margin:0 0 16px">Salut les JPPJR,</p>
-                <p style="font-size:15px;color:#2c2416;line-height:1.6;margin:0 0 20px">
-                  Le coach a un message pour vous avant le grand départ.<br>
-                  Rendez-vous sur la page de l'équipe pour l'écouter !
-                </p>
-                <div style="text-align:center;margin:24px 0">
-                  <a href="https://n58s29.github.io/jppjr-oleron/"
-                     style="display:inline-block;background:#e63030;color:white;padding:14px 32px;border-radius:99px;text-decoration:none;font-size:16px;font-weight:700">
-                    🎙 Voir le message du coach →
-                  </a>
-                </div>
-                <hr style="border:none;border-top:1px solid #e8d4b8;margin:24px 0">
-                <p style="font-size:13px;color:#6b5e4f;text-align:center;margin:0">
-                  🟢 KLUMY · 🔵 SISI · 🟠 MAT · 🟣 TOTO<br>
-                  <a href="https://ut-oleron.fr" style="color:#1a6b8a">ut-oleron.fr</a>
-                </p>
-              </div>
-            </div>
+      - name: Envoyer le mail via API Brevo
+        run: |
+          curl --fail -X POST https://api.brevo.com/v3/smtp/email \
+            -H "api-key: ${{ secrets.BREVO_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "sender": { "name": "Team JPPJR", "email": "m47r18@gmail.com" },
+              "to": [
+                { "email": "m47r18@pm.me" },
+                { "email": "b@b.fr" },
+                { "email": "c@c.fr" }
+              ],
+              "subject": "🎙 Message du coach — J-2 avant l'\''Ultra Trail Oléron",
+              "htmlContent": "<div style=\"font-family:Helvetica Neue,Arial,sans-serif;max-width:560px;margin:0 auto;background:#f5e6d0;border-radius:14px;overflow:hidden\"><div style=\"background:#264653;padding:32px 24px;text-align:center\"><div style=\"display:inline-block;background:#e63030;color:white;padding:6px 20px;border-radius:99px;font-size:13px;font-weight:700;letter-spacing:2px;margin-bottom:12px\">RELAIS 4x25KM</div><h1 style=\"color:#f5e6d0;font-size:28px;margin:0 0 6px\">Team JPPJR</h1><p style=\"color:#f5e6d0;opacity:0.8;font-size:14px;margin:0\">Ultra Trail de l Ile d Oleron — 4 avril 2026</p></div><div style=\"padding:28px 24px\"><p style=\"font-size:16px;color:#2c2416;margin:0 0 16px\">Salut les JPPJR,</p><p style=\"font-size:15px;color:#2c2416;line-height:1.6;margin:0 0 20px\">Le coach a un message pour vous avant le grand depart.<br>Rendez-vous sur la page de l equipe pour l ecouter !</p><div style=\"text-align:center;margin:24px 0\"><a href=\"https://n58s29.github.io/jppjr-oleron/\" style=\"display:inline-block;background:#e63030;color:white;padding:14px 32px;border-radius:99px;text-decoration:none;font-size:16px;font-weight:700\">Voir le message du coach</a></div><hr style=\"border:none;border-top:1px solid #e8d4b8;margin:24px 0\"><p style=\"font-size:13px;color:#6b5e4f;text-align:center;margin:0\">KLUMY · SISI · MAT · TOTO<br><a href=\"https://ut-oleron.fr\" style=\"color:#1a6b8a\">ut-oleron.fr</a></p></div></div>"
+            }'
