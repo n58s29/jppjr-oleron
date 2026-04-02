@@ -1,7 +1,7 @@
 // ========== COACH MODAL ==========
 // Remplace COACH_VIDEO_URL par l'URL d'embed Google Drive
 // Format : https://drive.google.com/file/d/TON_FILE_ID/preview
-const COACH_VIDEO_URL = 'https://drive.google.com/file/d/1qyXm8r2Vw-p1ahBVQXtynTZ30d0EDvBI/preview';
+const COACH_VIDEO_URL = 'https://drive.google.com/file/d/19loAMvjDmK89Ti6GsvXabJI56xSeMC7y/preview';
 const COACH_REVEAL = new Date('2026-04-02T12:00:00+02:00');
 
 function initCoachBanner() {
