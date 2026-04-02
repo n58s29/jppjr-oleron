@@ -1,3 +1,25 @@
+// ========== COACH MODAL ==========
+// Remplace COACH_VIDEO_URL par l'URL d'embed Google Drive
+// Format : https://drive.google.com/file/d/TON_FILE_ID/preview
+const COACH_VIDEO_URL = 'PLACEHOLDER_GOOGLE_DRIVE_EMBED_URL';
+
+function openCoachModal() {
+  const modal = document.getElementById('coachModal');
+  const iframe = document.getElementById('coachVideo');
+  iframe.src = COACH_VIDEO_URL;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCoachModal(event) {
+  if (event && event.target !== document.getElementById('coachModal')) return;
+  const modal = document.getElementById('coachModal');
+  const iframe = document.getElementById('coachVideo');
+  modal.classList.remove('open');
+  iframe.src = ''; // stoppe la vidéo
+  document.body.style.overflow = '';
+}
+
 // ========== COUNTDOWN ==========
 const raceDate = new Date('2026-04-04T05:30:00+02:00');
 function updateCountdown() {

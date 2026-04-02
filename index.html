@@ -24,11 +24,32 @@
   </ul>
 </nav>
 
+<!-- COACH BANNER -->
+<div class="coach-banner" onclick="openCoachModal()">
+  <span class="coach-banner-icon">🎙</span>
+  <span class="coach-banner-text">Vous avez un message du coach</span>
+  <span class="coach-banner-arrow">▶</span>
+</div>
+
+<!-- COACH MODAL -->
+<div class="coach-modal-overlay" id="coachModal" onclick="closeCoachModal(event)">
+  <div class="coach-modal-box">
+    <button class="coach-modal-close" onclick="closeCoachModal()">✕</button>
+    <iframe
+      id="coachVideo"
+      class="coach-modal-iframe"
+      src=""
+      allow="autoplay"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
 <!-- HERO -->
 <div class="hero">
   <div class="hero-content">
     <div class="team-badge">RELAIS 4×25KM</div>
-    <h1>Équipe JPPJR</h1>
+    <h1>Team JPPJR</h1>
     <p class="sub">Ultra Trail de l'Île d'Oléron — 4 avril 2026<br>101 km · Départ 5h30 · Château d'Oléron</p>
     <div class="countdown" id="countdown">
       <div class="cd-box"><div class="num" id="cd-d">--</div><div class="lbl">Jours</div></div>
@@ -162,7 +183,7 @@
 </section>
 
 <footer>
-  <strong>Équipe JPPJR</strong> — Ultra Trail Oléron 2026<br>
+  <strong>Team JPPJR</strong> — Ultra Trail Oléron 2026<br>
   KLUMY · SISI · MAT · TOTO<br>
   <small>Page créée avec ❤️ pour le jour J<br>
   <a href="https://ut-oleron.fr">ut-oleron.fr</a></small>

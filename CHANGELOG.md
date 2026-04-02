@@ -2,8 +2,16 @@
 
 ## [Unreleased] — 2026-04-02
 
+### Ajouté
+- **Bannière "message du coach"** : bandeau rouge cliquable en haut de page, ouvre un modal avec la vidéo Google Drive
+- **GitHub Action** : envoi automatique d'un email HTML aux coureurs le 2 avril à midi (cron UTC+2), avec déclenchement manuel possible (`workflow_dispatch`)
+
+### Modifié
+- Charte couleur : accent principal `--sunset` mis à jour en rouge `#e63030` (en accord avec le bob rouge de l'équipe)
+- "Équipe JPPJR" renommé "Team JPPJR" dans le hero et le footer
+
 ### Refactoring
-- Découpage du fichier unique `index.html` en 3 fichiers séparés : `index.html` (HTML, 174 lignes), `style.css` (CSS, 671 lignes), `app.js` (JS, 566 lignes)
+- Découpage du fichier unique `index.html` en 3 fichiers séparés : `index.html` (HTML), `style.css` (CSS), `app.js` (JS)
 
 ---
 
