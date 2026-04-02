@@ -17,7 +17,7 @@ jobs:
           server_address: smtp-relay.brevo.com
           server_port: 587
           secure: false
-          username: m47r18@gmail.com
+          username: a6e790001@smtp-brevo.com
           password: ${{ secrets.BREVO_SMTP_KEY }}
           to: m47r18@pm.me,b@b.fr,c@c.fr
           from: "Team JPPJR 🏃 <m47r18@gmail.com>"
