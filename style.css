@@ -669,6 +669,14 @@ footer a { color: var(--sunset-light); }
   50% { box-shadow: 0 0 24px currentColor, 0 2px 12px rgba(0,0,0,0.4); transform: scale(1.1); }
 }
 
+/* ===== CGU (lien coach caché avant midi) ===== */
+.cgu-link {
+  color: rgba(255,255,255,0.2);
+  font-size: 10px;
+  text-decoration: none;
+}
+.cgu-link:hover { color: rgba(255,255,255,0.4); }
+
 /* ===== COACH BANNER ===== */
 .coach-banner {
   display: flex;

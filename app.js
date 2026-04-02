@@ -1,7 +1,20 @@
 // ========== COACH MODAL ==========
 // Remplace COACH_VIDEO_URL par l'URL d'embed Google Drive
 // Format : https://drive.google.com/file/d/TON_FILE_ID/preview
-const COACH_VIDEO_URL = 'PLACEHOLDER_GOOGLE_DRIVE_EMBED_URL';
+const COACH_VIDEO_URL = 'https://drive.google.com/file/d/1qyXm8r2Vw-p1ahBVQXtynTZ30d0EDvBI/preview';
+const COACH_REVEAL = new Date('2026-04-02T12:00:00+02:00');
+
+function initCoachBanner() {
+  const banner = document.getElementById('coachBanner');
+  const cgu = document.getElementById('coachCGU');
+  if (new Date() >= COACH_REVEAL) {
+    banner.style.display = 'flex';
+    if (cgu) cgu.style.display = 'none';
+  } else {
+    banner.style.display = 'none';
+    if (cgu) cgu.style.display = 'inline';
+  }
+}
 
 function openCoachModal() {
   const modal = document.getElementById('coachModal');
@@ -16,9 +29,11 @@ function closeCoachModal(event) {
   const modal = document.getElementById('coachModal');
   const iframe = document.getElementById('coachVideo');
   modal.classList.remove('open');
-  iframe.src = ''; // stoppe la vidéo
+  iframe.src = '';
   document.body.style.overflow = '';
 }
+
+initCoachBanner();
 
 // ========== COUNTDOWN ==========
 const raceDate = new Date('2026-04-04T05:30:00+02:00');

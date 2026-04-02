@@ -25,7 +25,7 @@
 </nav>
 
 <!-- COACH BANNER -->
-<div class="coach-banner" onclick="openCoachModal()">
+<div class="coach-banner" id="coachBanner" onclick="openCoachModal()">
   <span class="coach-banner-icon">🎙</span>
   <span class="coach-banner-text">Vous avez un message du coach</span>
   <span class="coach-banner-arrow">▶</span>
@@ -186,7 +186,8 @@
   <strong>Team JPPJR</strong> — Ultra Trail Oléron 2026<br>
   KLUMY · SISI · MAT · TOTO<br>
   <small>Page créée avec ❤️ pour le jour J<br>
-  <a href="https://ut-oleron.fr">ut-oleron.fr</a></small>
+  <a href="https://ut-oleron.fr">ut-oleron.fr</a><br>
+  <a id="coachCGU" href="#" onclick="openCoachModal();return false;" class="cgu-link">CGU</a></small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
