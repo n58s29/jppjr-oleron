@@ -69,7 +69,9 @@
   </div>
 </div>
 
-<!-- TIMELINE -->
+<!-- TIMELINE + LIVE -->
+<div class="timeline-live-wrapper">
+
 <section id="timeline">
   <div class="section-title"><span class="icon">⏱</span> Timeline Jour J <a href="https://live.breizhchrono.com/external/live5/index.jsp?reference=1695760050266-3" target="_blank" class="on-air"><span class="on-air-dot"></span> LIVE</a></div>
 
@@ -81,6 +83,26 @@
 
   <div class="timeline" id="timelineContent"></div>
 </section>
+
+<div class="live-panel" id="livePanel">
+  <div class="live-panel-header">
+    <span class="live-panel-title">Suivi en direct</span>
+    <span class="on-air"><span class="on-air-dot"></span> LIVE</span>
+    <button class="live-toggle" id="liveToggle" onclick="toggleLivePanel()" aria-label="Afficher/masquer le live">▼</button>
+  </div>
+  <div class="live-panel-body live-collapsed" id="livePanelBody">
+    <iframe
+      src="https://live.breizhchrono.com/external/live5/index.jsp?reference=1695760050266-3&heat-id=1696927206503"
+      class="live-iframe"
+      allow="fullscreen"
+      loading="lazy"
+      title="Suivi live Breizhchrono">
+    </iframe>
+    <a href="https://live.breizhchrono.com/external/live5/index.jsp?reference=1695760050266-3&heat-id=1696927206503" target="_blank" class="live-fullscreen-link">Ouvrir en plein écran →</a>
+  </div>
+</div>
+
+</div>
 
 <!-- MAP -->
 <section id="carte">

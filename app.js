@@ -600,4 +600,12 @@ document.getElementById('parkingCards').innerHTML = parkingData.map(p => `
     <h3>${p.title}</h3>
     <p>${p.text}</p>
   </div>
-`).join('');
+`).join('');
+
+// ========== LIVE PANEL TOGGLE (mobile) ==========
+function toggleLivePanel() {
+  const body = document.getElementById('livePanelBody');
+  const btn = document.getElementById('liveToggle');
+  const collapsed = body.classList.toggle('live-collapsed');
+  btn.textContent = collapsed ? '▼' : '▲';
+}
