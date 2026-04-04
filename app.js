@@ -7,13 +7,8 @@ const COACH_REVEAL = new Date('2026-04-02T12:00:00+02:00');
 function initCoachBanner() {
   const banner = document.getElementById('coachBanner');
   const cgu = document.getElementById('coachCGU');
-  if (new Date() >= COACH_REVEAL) {
-    banner.style.display = 'flex';
-    if (cgu) cgu.style.display = 'none';
-  } else {
-    banner.style.display = 'none';
-    if (cgu) cgu.style.display = 'inline';
-  }
+  banner.style.display = 'none';
+  if (cgu) cgu.style.display = 'inline';
 }
 
 function openCoachModal() {
@@ -36,7 +31,7 @@ function closeCoachModal(event) {
 initCoachBanner();
 
 // ========== COUNTDOWN ==========
-const raceDate = new Date('2026-04-04T05:30:00+02:00');
+const raceDate = new Date('2026-04-04T05:32:30+02:00');
 function updateCountdown() {
   const now = new Date();
   const diff = raceDate - now;
@@ -452,7 +447,7 @@ function makeIcon(bg, content, size=28) {
 }
 
 // Static markers — correct positions from GPX
-L.marker([45.88425,-1.18953], {icon: makeIcon('#27ae60','🏁')}).addTo(map).bindPopup('<b>🏁 Départ & Arrivée</b><br>Citadelle du Château d\'Oléron<br>Départ 5h30');
+L.marker([45.88425,-1.18953], {icon: makeIcon('#27ae60','🏁')}).addTo(map).bindPopup('<b>🏁 Départ & Arrivée</b><br>Citadelle du Château d\'Oléron<br>Départ 5h32');
 L.marker([45.86076,-1.23926], {icon: makeIcon('#e74c3c','🔄')}).addTo(map).bindPopup('<b>🔄 Relais 1 — Grand-Village</b><br>km 25 · KLUMY → SISI');
 L.marker([45.97165,-1.37734], {icon: makeIcon('#e74c3c','🔄')}).addTo(map).bindPopup('<b>🔄 Relais 2 — Domino</b><br>km 48 · SISI → MAT<br>⚠ Barrière 14h · 🏥 Staff médical');
 L.marker([45.98746,-1.29371], {icon: makeIcon('#e74c3c','🔄')}).addTo(map).bindPopup('<b>🔄 Relais 3 — Gautrelle</b><br>km 75 · MAT → TOTO<br>⚠ Barrière 18h');
