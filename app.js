@@ -112,10 +112,10 @@ const runners = [
   { name: 'TOTO', cls: 'toto', from: 'Gautrelle', to: 'Arrivée (Château)', distKm: 24.55, emoji: '🟣', color: 'var(--toto)' },
 ];
 
-// Build pace options: 3:45 to 6:30 by 15s steps
+// Build pace options: 3:45 to 9:00 by 5s steps
 function buildPaceOptions() {
   const opts = [];
-  for (let totalSec = 3*60+45; totalSec <= 6*60+30; totalSec += 5) {
+  for (let totalSec = 3*60+45; totalSec <= 9*60+0; totalSec += 5) {
     const m = Math.floor(totalSec / 60);
     const s = totalSec % 60;
     opts.push({ label: `${m}:${String(s).padStart(2,'0')} /km`, value: totalSec });
